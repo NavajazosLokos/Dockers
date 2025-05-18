@@ -7,15 +7,8 @@ web compuesta por frontend, backend y base de datos, usando la versión 3.8 de D
 BASE DE DATOS (MYSQL)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
-webapp-db:  # Cambié de 'db' a 'webapp-db'
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234  # Contraseña correcta según el ejemplo
-      MYSQL_DATABASE: webapp  # La base de datos a utilizar
-    ports:
-      - "3307:3306"
-    networks:
-      - mi_red
+![image](https://github.com/user-attachments/assets/99b2bf7c-a840-42c2-bb01-be9e571de6b0)
+
 
 webapp-db (MySQL)
 Este servicio utiliza la imagen oficial de MySQL 5.7 para levantar una base de datos.
@@ -31,20 +24,8 @@ networks: Está conectado a una red personalizada llamada mi_red.
 BACKEND (DOCKER)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
-backend:
-    build: ./backend
-    ports:
-      - "3000:3000"
-    environment:
-      DB_HOST: webapp-db
-      DB_PORT: 3306       
-      DB_USER: root
-      DB_PASSWORD: 1234
-      DB_NAME: webapp
-    depends_on:
-      - webapp-db
-    networks:
-      - mi_red
+![image](https://github.com/user-attachments/assets/0f8682c6-9edc-4bf1-af5e-30d174b08498)
+
 
 backend (API REST Node.js)
 Este servicio representa la parte lógica del sistema.
@@ -72,13 +53,8 @@ networks: También está en la red mi_red.
 FRONTEND (DOCKER)
 --------------------------------------------------------------------------------------------------------------------------------------------
 
-frontend:
-    image: nginx:alpine
-    build: ./frontend
-    ports:
-      - "80:80"
-    networks:
-      - mi_red
+![image](https://github.com/user-attachments/assets/7737fbda-da2d-4dba-b01f-0a61014ba618)
+
 
 frontend (Nginx)
 Este servicio sirve la parte visual de la aplicación.
@@ -106,3 +82,42 @@ bridge. Esto permite que los servicios se comuniquen entre sí por nombre.
 
 volumes: Aunque se define un volumen db_data, no se está usando explícitamente en este fragmento. 
 Se puede utilizar para persistencia de datos si se añade a webapp-db.
+
+
+Paginas HTML
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+![image](https://github.com/user-attachments/assets/8d3cbbf4-02e3-49ff-8937-c938ec7a9f23)
+
+PAGINA DE REGISTRO
+![image](https://github.com/user-attachments/assets/e2ca10ee-e366-4f8a-b15c-78fbb047bc27)
+
+podemos ver que al llenar el formulario del registro, este indica que se registro con exito y se guardo en la base de datos local del docker MYSQL
+
+![image](https://github.com/user-attachments/assets/fecbe7d0-941d-4a0f-b604-3ebab6379eb6)
+
+El dato se ve reflejado en la tabla de registros como lo demos ver, al entrar a la pantalla de login y ponemos los datos que escribimos anteriormente
+Podemos observar que puede entrar a otra pagina.html donde verifica que si se pudo validar la informacion del login
+
+![image](https://github.com/user-attachments/assets/3ee2b7c4-8d00-4644-9474-aab1e7fc78b9)
+
+el conjunto de docker se construye con el 
+docker-compose up --build -d 
+y el -d para que la terminal la puedas usar, esto lo puedes hacer despues de verificar que los console.log te indique esta bien la conexion.
+esto para ahorrar una pestaña de terminal.
+
+para la base de datos solo se uso esta tabla
+
+CREATE TABLE registros (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  correo VARCHAR(50) NOT NULL,
+  nickname VARCHAR(30) NOT NULL,
+  password VARCHAR(20) NOT NULL,
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+Apesar de ser algo corto, tuvo muchas dificultades con los dockers, esto se deba mas que soy nuevo en esto. 
+experimentando algunas cosas sobre estos
+
+
+
