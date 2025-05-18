@@ -96,7 +96,7 @@ podemos ver que al llenar el formulario del registro, este indica que se registr
 
 ![image](https://github.com/user-attachments/assets/fecbe7d0-941d-4a0f-b604-3ebab6379eb6)
 
-El dato se ve reflejado en la tabla de registros como lo demos ver, al entrar a la pantalla de login y ponemos los datos que escribimos anteriormente
+El dato se ve reflejado en la tabla de registros como lo podemos ver, al entrar a la pantalla de login y ponemos los datos que escribimos anteriormente
 Podemos observar que puede entrar a otra pagina.html donde verifica que si se pudo validar la informacion del login
 
 ![image](https://github.com/user-attachments/assets/3ee2b7c4-8d00-4644-9474-aab1e7fc78b9)
