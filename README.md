@@ -24,6 +24,8 @@ environment: Define variables como la contraseña del root (1234) y el nombre de
 ports: Expone el puerto interno 3306 de MySQL al puerto 3307 en el host local, para evitar conflictos con otras instancias de MySQL.
 
 networks: Está conectado a una red personalizada llamada mi_red.
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 backend:
@@ -63,6 +65,8 @@ Base de datos: webapp
 depends_on: Indica que este servicio debe iniciarse después de que la base de datos esté lista.
 
 networks: También está en la red mi_red.
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 frontend:
