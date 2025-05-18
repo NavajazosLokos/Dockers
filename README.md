@@ -1,9 +1,11 @@
-docker-compose.yml
+Archivo docker-compose.yml
+---------------------------------------------------------------------------------------------------------------------------------------------
 
 Este archivo docker-compose.yml define la estructura de un sistema con múltiples contenedores para una aplicación
 web compuesta por frontend, backend y base de datos, usando la versión 3.8 de Docker Compose.
 
----------------------------------------------------------------------------------------------------------------------------------------------
+BASE DE DATOS (MYSQL)
+
 webapp-db:  # Cambié de 'db' a 'webapp-db'
     image: mysql:5.7
     environment:
@@ -25,8 +27,7 @@ ports: Expone el puerto interno 3306 de MySQL al puerto 3307 en el host local, p
 
 networks: Está conectado a una red personalizada llamada mi_red.
 
-
---------------------------------------------------------------------------------------------------------------------------------------------
+BACKEND
 
 backend:
     build: ./backend
