@@ -117,7 +117,7 @@ CREATE TABLE registros (
 );
 
 Apesar de ser algo corto, tuvo muchas dificultades con los dockers, esto se deba mas que soy nuevo en esto. 
-experimentando algunas cosas sobre estos
+experimentando algunas cosas en que se puede hacer, que llena de posibilidades. 
 
 
 
