@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro</title>
+  <link rel="stylesheet" href="style.css"> <!-- Si tienes tu CSS en un archivo separado -->
+</head>
+<body>
+  <div class="container">
+    <h1>Formulario de Registro</h1>
+    <form id="registroForm">
+      <input type="email" id="correo" placeholder="Correo" required /><br/>
+      <input type="text" id="nickname" placeholder="Nickname" required /><br/>
+      <input type="password" id="password" placeholder="Contraseña" required /><br/>
+      <a href="login.html" class="subrayado">Tienes Cuenta?</a>
+      <button type="submit">Registrar</button>
+    </form>
+
+    <p id="msg"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('registroForm');
+    const msg = document.getElementById('msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = {
+        correo: document.getElementById('correo').value,
+        nickname: document.getElementById('nickname').value,
+        password: document.getElementById('password').value
+      };
+
+      try {
+        const res = await fetch('http://localhost:3000/api/registro', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        const json = await res.json();
+        msg.textContent = json.message || json.error;
+      } catch (err) {
+        msg.textContent = '❌ Error al enviar el formulario';
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Iniciar Sesión</h1>
+    <form id="loginForm">
+      <input type="email" id="correo" placeholder="Correo" required /><br/>
+      <input type="password" id="password" placeholder="Contraseña" required /><br/>
+      <a href="index.html" class="subrayado">Registrarse</a>
+
+      <button type="submit">Ingresar</button>
+    </form>
+    <p id="msg"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const msg = document.getElementById('msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = {
+        correo: document.getElementById('correo').value,
+        password: document.getElementById('password').value
+      };
+
+      try {
+        const res = await fetch('http://localhost:3000/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const json = await res.json();
+
+        if (res.ok) {
+          msg.textContent = json.message;
+          msg.style.color = 'green';
+          // Redirige a otra página después de 1 segundo
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1000);
+        } else {
+          msg.textContent = json.error;
+          msg.style.color = 'red';
+        }
+      } catch (err) {
+        msg.textContent = '❌ Error al conectarse al servidor';
+        msg.style.color = 'red';
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

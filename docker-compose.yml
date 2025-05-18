@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  webapp-db:  # Cambié de 'db' a 'webapp-db'
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234  # Contraseña correcta según el ejemplo
+      MYSQL_DATABASE: webapp  # La base de datos a utilizar
+    ports:
+      - "3307:3306"
+    networks:
+      - mi_red
+
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: webapp-db
+      DB_PORT: 3306        # ✅ Agrega esta línea
+      DB_USER: root
+      DB_PASSWORD: 1234
+      DB_NAME: webapp
+    depends_on:
+      - webapp-db
+    networks:
+      - mi_red
+
+  frontend:
+    image: nginx:alpine
+    build: ./frontend
+    ports:
+      - "80:80"
+    networks:
+      - mi_red
+
+volumes:
+  db_data:
+
+networks:
+  mi_red:
+    driver: bridge
