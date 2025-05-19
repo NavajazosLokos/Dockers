@@ -92,12 +92,12 @@ Paginas HTML
 PAGINA DE REGISTRO
 ![image](https://github.com/user-attachments/assets/e2ca10ee-e366-4f8a-b15c-78fbb047bc27)
 
-podemos ver que al llenar el formulario del registro, este indica que se registro con exito y se guardo en la base de datos local del docker MYSQL
+podemos ver que al llenar el formulario del registro, este indica que se registro con exito y se guardo en la base de datos local del docker MYSQL:
 
 ![image](https://github.com/user-attachments/assets/fecbe7d0-941d-4a0f-b604-3ebab6379eb6)
 
 El dato se ve reflejado en la tabla de registros como lo podemos ver, al entrar a la pantalla de login y ponemos los datos que escribimos anteriormente
-Podemos observar que puede entrar a otra pagina.html donde verifica que si se pudo validar la informacion del login
+Podemos observar que puede entrar a otra pagina.html donde verifica que si se pudo validar la informacion del login:
 
 ![image](https://github.com/user-attachments/assets/3ee2b7c4-8d00-4644-9474-aab1e7fc78b9)
 
