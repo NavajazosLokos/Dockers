@@ -120,4 +120,53 @@ Apesar de ser algo corto, tuvo muchas dificultades con los dockers, esto se deba
 experimentando algunas cosas en que se puede hacer, que llena de posibilidades. 
 
 
+Como Desplegar el Proyecto?
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Lo primero es descargar todos los archivos del github y ponerlo en una caperta llamada "WEBAPP" 
+Descargar docker-desktop y ejecutarlo.
+Despues de eso iran a una terminal que usen puede ser descargada o del propio CMD
+y ponen lo siguiente (Estando dentro de la carpeta donde se encuentra el archivo docker-compose.yml)
+
+![image](https://github.com/user-attachments/assets/ccb4d452-d077-4393-977d-a3d6f69bb37e)
+
+Ponen el siguiente comando 
+docker-compose up -d 
+Esto hara que levante todos los dockers del docker-compose
+La primera vez puede tardar 
+
+![image](https://github.com/user-attachments/assets/8262a438-68f7-447f-8cb0-40dd3a3dee15)
+
+en la base de datos webapp-db-slave1 entran con:
+docker exec -it webapp-db-slave1 mysql -uroot -p1234
+y checan si esta creada la base de datos "webapp"
+si no esta hay que crearla
+
+create database webapp;
+
+igualmente con webapp-db-slave2
+docker exec -it webapp-db-slave2 mysql -uroot -p1234
+
+en cada slave al final poner "START SLAVE;" para inicializarlo
+
+En la base de datos llamada webapp-db-master
+entran con el siguiente comando
+
+docker exec -it webapp-db-master mysql -uroot -p1234
+
+se van a la base de datos usando "use webapp;"
+y crean la tabla registros
+
+CREATE TABLE registros (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  correo VARCHAR(50) NOT NULL,
+  nickname VARCHAR(30) NOT NULL,
+  password VARCHAR(20) NOT NULL,
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+esto hara que automaticandomente las bases de datos como "webapp-db-slave1" y "webapp-db-slave2" reflejen la tabla registrada.
+
+Y listo la pagina estara en "localhost" poniendolo asi en el navegador.
+
 
