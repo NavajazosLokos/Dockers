@@ -147,6 +147,7 @@ si no esta hay que crearla
 create database webapp;
 
 igualmente con webapp-db-slave2
+
 docker exec -it webapp-db-slave2 mysql -uroot -p1234
 
 en cada slave al final poner "START SLAVE;" para inicializarlo
