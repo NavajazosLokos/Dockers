@@ -130,8 +130,10 @@ y ponen lo siguiente (Estando dentro de la carpeta donde se encuentra el archivo
 
 ![image](https://github.com/user-attachments/assets/ccb4d452-d077-4393-977d-a3d6f69bb37e)
 
-Ponen el siguiente comando 
-docker-compose up -d 
+Ponen el siguiente comando
+
+"docker-compose up -d" 
+
 Esto hara que levante todos los dockers del docker-compose
 La primera vez puede tardar 
 
