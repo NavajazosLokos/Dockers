@@ -1,13 +1,66 @@
 version: '3.8'
 
 services:
-  webapp-db:  # Cambié de 'db' a 'webapp-db'
+  webapp-db-master:
     image: mysql:5.7
+    container_name: webapp-db-master
     environment:
-      MYSQL_ROOT_PASSWORD: 1234  # Contraseña correcta según el ejemplo
-      MYSQL_DATABASE: webapp  # La base de datos a utilizar
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: webapp
+    command:
+      --server-id=1
+      --log-bin=mysql-bin
+      --binlog-format=ROW
+      --gtid_mode=ON
+      --enforce_gtid_consistency=TRUE
+      --log_slave_updates=TRUE
+      --read_only=FALSE
     ports:
       - "3307:3306"
+    volumes:
+      - db_master_data:/var/lib/mysql
+    networks:
+      - mi_red
+
+  webapp-db-slave1:
+    image: mysql:5.7
+    container_name: webapp-db-slave1
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    command:
+      --server-id=2
+      --read_only=TRUE
+      --relay-log=relay-log-bin
+      --log_slave_updates=TRUE
+      --gtid_mode=ON
+      --enforce_gtid_consistency=TRUE
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_slave1_data:/var/lib/mysql
+    depends_on:
+      - webapp-db-master
+    networks:
+      - mi_red
+
+  webapp-db-slave2:
+    image: mysql:5.7
+    container_name: webapp-db-slave2
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    command:
+      --server-id=3
+      --read_only=TRUE
+      --relay-log=relay-log-bin
+      --log_slave_updates=TRUE
+      --gtid_mode=ON
+      --enforce_gtid_consistency=TRUE
+    ports:
+      - "3309:3306"
+    volumes:
+      - db_slave2_data:/var/lib/mysql
+    depends_on:
+      - webapp-db-master
     networks:
       - mi_red
 
@@ -16,13 +69,13 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DB_HOST: webapp-db
-      DB_PORT: 3306        # ✅ Agrega esta línea
+      DB_HOST: webapp-db-master
+      DB_PORT: 3306
       DB_USER: root
       DB_PASSWORD: 1234
       DB_NAME: webapp
     depends_on:
-      - webapp-db
+      - webapp-db-master
     networks:
       - mi_red
 
@@ -35,7 +88,9 @@ services:
       - mi_red
 
 volumes:
-  db_data:
+  db_master_data:
+  db_slave1_data:
+  db_slave2_data:
 
 networks:
   mi_red:
